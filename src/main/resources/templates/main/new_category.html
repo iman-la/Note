@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragment/static.html::head">
+</head>
+<body>
+<th:block th:insert="fragment/static.html::navbar"/>
+<form method="post" action="/category/save_category">
+    <div class="form-group">
+        <label for="exampleFormControlInput1">Title</label>
+        <input type="text" name="title" class="form-control" id="exampleFormControlInput1" placeholder="Title">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+</form>
+
+
+
+</body>
+</html>

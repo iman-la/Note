@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragment/static.html::head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block th:insert="fragment/static.html::navbar"/>
+
+
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Category</th>
+        <th scope="col">Title</th>
+        <th scope="col">Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="thisnote:${notes}">
+        <td th:text="${thisnote.getCategory().getTitle()}" ></td>
+        <td th:text="${thisnote.getTitle()}" ></td>
+        <td>
+            <form method="post" action="/note/delete_note">
+                <input th:value="${thisnote.getNote_id()}" type="hidden" name="noteId">
+                <input th:name="${_csrf.getParameterName()}" th:value="${_csrf.token}" type="hidden">
+                <button class="btn btn-primary" href="">Delete</button>
+            </form>
+            <form method="post" action="/note/update_note_form">
+                <input th:value="${thisnote.getNote_id()}" type="hidden" name="noteId">
+                <input th:name="${_csrf.getParameterName()}" th:value="${_csrf.token}" type=""hidden>
+                <button class="btn btn-primary" href="">Update</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragment/static.html::head">
+</head>
+<body>
+<th:block th:insert="fragment/static.html::navbar"/>
+<form method="post" action="/note/update_note">
+    <div class="form-group">
+        <!--/*@thymesVar id="PLnote" type="note.note.entity.Note"*/-->
+        <!--/*@thymesVar id="cat" type="note.note.entity.Category"*/-->
+        <input type="hidden" name="noteId" class="form-control"  th:value="${PLnote.getNote_id()}">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlInput2">Title</label>
+        <input type="text" name="title" class="form-control" id="exampleFormControlInput2" placeholder="Title" th:value="${PLnote.getTitle()}">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlInput2">Category</label>
+        <select class="form-control" id="exampleFormControlSelect1" name="catId">
+            <th:block  th:each="cat:${categories}">
+                <option th:text="${cat.getTitle()}" th:value="${cat.getCat_id()}" th:if=" ${cat.getCat_id()}==${PLnote.getCategory().getCat_id()} " selected></option>
+                <option th:text="${cat.getTitle()}" th:value="${cat.getCat_id()}" th:unless=" ${cat.getCat_id()}==${PLnote.getCategory().getCat_id()} "></option>
+            </th:block>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Body:</label>
+        <textarea class="form-control" name="body" id="exampleFormControlTextarea1" rows="3" th:text="${PLnote.getBody()}"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <input type="text" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+</form>
+
+
+</body>
+</html>
